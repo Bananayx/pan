@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>隐私政策 - Banana Y.X.网盘</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="icon" href="https://files.bananayx.qzz.io/img/Banana头像.png" type="image/x-icon">
+    <style>
+        :root {
+            --primary-color: #4285F4;
+            --text-color: #333;
+            --bg-color: #fff;
+            --card-color: #f5f5f5;
+        }
+        
+        [data-theme="dark"] {
+            --primary-color: #8ab4f8;
+            --text-color: #e8eaed;
+            --bg-color: #202124;
+            --card-color: #303134;
+        }
+        
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            transition: all 0.3s ease;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 10px;
+        }
+        
+        h1 {
+            color: var(--primary-color);
+            margin: 0;
+        }
+        
+        .theme-toggle {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .card {
+            background: var(--card-color);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        h2 {
+            color: var(--primary-color);
+            margin-top: 0;
+        }
+        
+        .highlight {
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+        
+        .disclaimer {
+            font-style: italic;
+            opacity: 0.8;
+            font-size: 0.9em;
+        }
+        
+        .privacy-meter {
+            width: 100%;
+            height: 20px;
+            background: #e0e0e0;
+            border-radius: 10px;
+            margin: 10px 0;
+            overflow: hidden;
+        }
+        
+        .privacy-meter-fill {
+            height: 100%;
+            background: var(--primary-color);
+            width: 10%;
+            transition: width 0.5s ease;
+        }
+        
+        .privacy-score {
+            text-align: center;
+            font-size: 1.2em;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <a href="javascript:window.close" style="color: var(--primary-color); margin-right: 20px;">返回网盘</a>
+            <h1>隐私政策</h1>
+            <button class="theme-toggle" id="themeToggle">
+                <span class="material-icons">brightness_4</span>
+                <span>夜间模式</span>
+            </button>
+        </div>
+        
+        <div class="card">
+            <h2>🔒 您的隐私对我们很重要...才怪</h2>
+            <p>欢迎阅读我们的<span class="highlight">虚构</span>隐私政策。实际上，我们根本不在乎您的隐私。</p>
+            
+            <div class="privacy-meter">
+                <div class="privacy-meter-fill" id="privacyMeter"></div>
+            </div>
+            <div class="privacy-score">
+                您的隐私评分: <span id="privacyScore">10%</span>
+            </div>
+        </div>
+        
+        <div class="card">
+            <h2>📱 我们收集的数据</h2>
+            <p>我们会收集您的一切数据，包括但不限于：</p>
+            <ul>
+                <li>您的文件内容（特别是那些尴尬的照片）</li>
+                <li>您的浏览习惯（我们知道您喜欢看什么）</li>
+                <li>您的IP地址（方便我们上门拜访）</li>
+                <li>您的设备信息（为了更好的广告投放）</li>
+            </ul>
+        </div>
+        
+        <div class="card">
+            <h2>🤝 数据共享</h2>
+            <p>我们与以下各方共享您的数据：</p>
+            <ul>
+                <li>我们的广告合作伙伴</li>
+                <li>任何愿意出价购买的人</li>
+                <li>我们的实习生（用于练习数据分析）</li>
+                <li>互联网上的任何人（开玩笑的...也许吧）</li>
+            </ul>
+        </div>
+        
+        <div class="card">
+            <h2>🍪 我们使用Cookie</h2>
+            <p>我们不仅使用Cookie，我们还吃掉它们。实际上，我们使用各种跟踪技术来<span class="highlight">监视</span>您的在线活动。</p>
+        </div>
+        
+        <div class="card">
+            <h2>🚨 数据泄露</h2>
+            <p>如果发生数据泄露（这几乎是肯定的），我们不会通知您，因为那太麻烦了。</p>
+        </div>
+        
+        <div class="card disclaimer">
+            <p>⚠️ 再次声明：以上内容纯属恶搞，我们实际上不会收集或滥用您的数据...应该吧。</p>
+        </div>
+    </div>
+    
+    <script>
+        const themeToggle = document.getElementById('themeToggle');
+        const icon = themeToggle.querySelector('.material-icons');
+        const privacyMeter = document.getElementById('privacyMeter');
+        const privacyScore = document.getElementById('privacyScore');
+        
+        // 主题切换逻辑
+        themeToggle.addEventListener('click', () => {
+            document.body.dataset.theme = document.body.dataset.theme === 'dark' ? 'light' : 'dark';
+            
+            if (document.body.dataset.theme === 'dark') {
+                icon.textContent = 'brightness_7';
+                themeToggle.querySelector('span:last-child').textContent = '白天模式';
+            } else {
+                icon.textContent = 'brightness_4';
+                themeToggle.querySelector('span:last-child').textContent = '夜间模式';
+            }
+        });
+        
+        // 恶搞隐私评分动画
+        let score = 10;
+        const animatePrivacyScore = () => {
+            score = Math.max(0, score - 1);
+            privacyMeter.style.width = `${score}%`;
+            privacyScore.textContent = `${score}%`;
+            
+            if (score > 0) {
+                setTimeout(animatePrivacyScore, 100);
+            } else {
+                setTimeout(() => {
+                    privacyScore.textContent = "0% (您的隐私已消失)";
+                }, 500);
+            }
+        };
+        
+        setTimeout(animatePrivacyScore, 2000);
+    </script>
+</body>
+</html>
