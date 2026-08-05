@@ -1,415 +1,339 @@
+
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="https://files.bananayx.qzz.io/img/Banana头像.png" type="image/x-icon">
-    <title>Banana Y.X.网盘网址发布页</title>
+    <title>Banana Y.X.网盘地址发布页</title>
+    <link rel="icon" href="https://files.bananayx.qzz.io/img/Banana%E5%A4%B4%E5%83%8F.png" type="image/png">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
-        /* 维护提示悬浮卡片 */
-        .maintenance-overlay {
-            position: fixed;
-            inset: 0;
-            z-index: 99999;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: rgba(0, 0, 0, 0.45);
-            backdrop-filter: blur(4px);
-            -webkit-backdrop-filter: blur(4px);
-            animation: overlayFadeIn 0.4s ease-out;
-            pointer-events: auto;
-        }
-
-        .maintenance-card {
-            background: #fff;
-            border-radius: 16px;
-            padding: 40px 36px 32px;
-            max-width: 380px;
-            width: 90%;
-            text-align: center;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(183, 28, 28, 0.15);
-            animation: cardBounceIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .maintenance-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 5px;
-            background: linear-gradient(90deg, #d32f2f, #e53935, #d32f2f);
-            background-size: 200% 100%;
-            animation: shimmer 2s linear infinite;
-        }
-
-        .maintenance-card .card-icon {
-            width: 56px;
-            height: 56px;
-            margin: 0 auto 20px;
-            background: linear-gradient(135deg, #d32f2f, #b71c1c);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 6px 20px rgba(211, 47, 47, 0.35);
-            animation: iconPulse 2s ease-in-out infinite;
-        }
-
-        .maintenance-card .card-icon svg {
-            width: 28px;
-            height: 28px;
-            fill: #fff;
-        }
-
-        .maintenance-card .card-title {
-            font-size: 1.25rem;
-            font-weight: 700;
-            color: #d32f2f;
-            margin-bottom: 10px;
-        }
-
-        .maintenance-card .card-desc {
-            font-size: 0.95rem;
-            color: #666;
-            line-height: 1.7;
-            margin-bottom: 24px;
-        }
-
-        .maintenance-card .card-status {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: #fef2f2;
-            border: 1px solid #fecaca;
-            border-radius: 20px;
-            padding: 6px 16px;
-            font-size: 0.85rem;
-            color: #b91c1c;
-            font-weight: 500;
-        }
-
-        .maintenance-card .card-status .status-dot {
-            width: 8px;
-            height: 8px;
-            background: #ef4444;
-            border-radius: 50%;
-            animation: blink 1.2s ease-in-out infinite;
-        }
-
-        @keyframes overlayFadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        @keyframes cardBounceIn {
-            from { opacity: 0; transform: scale(0.85) translateY(20px); }
-            to { opacity: 1; transform: scale(1) translateY(0); }
-        }
-
-        @keyframes iconPulse {
-            0%, 100% { box-shadow: 0 6px 20px rgba(211, 47, 47, 0.35); }
-            50% { box-shadow: 0 6px 30px rgba(211, 47, 47, 0.55); }
-        }
-
-        @keyframes shimmer {
-            0% { background-position: 200% 0; }
-            100% { background-position: -200% 0; }
-        }
-
-        @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.3; }
-        }
-
-        @media (max-width: 480px) {
-            .maintenance-card {
-                padding: 32px 24px 24px;
-                max-width: 320px;
-            }
-            .maintenance-card .card-title {
-                font-size: 1.1rem;
-            }
-            .maintenance-card .card-desc {
-                font-size: 0.88rem;
-            }
-        }
-
-        /* 全局样式 */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
-        /* 谷歌蓝颜色变量 */
+
         :root {
-            --google-blue: #4285F4;
+            --md-bg: #f5f5f7;
+            --md-surface: #ffffff;
+            --md-primary: #1976d2;
+            --md-on-primary: #ffffff;
+            --md-secondary: #9c27b0;
+            --md-on-surface: #1d1d1f;
+            --md-on-surface-variant: #3a3a3c;
+            --md-elevation: 0 4px 20px rgba(0, 0, 0, 0.10), 0 2px 6px rgba(0, 0, 0, 0.06);
+            --md-radius: 16px;
+            --md-font: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            --logo-light-display: block;
+            --logo-dark-display: none;
         }
-        
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --md-bg: #0f0f11;
+                --md-surface: #1c1c1e;
+                --md-primary: #90caf9;
+                --md-on-primary: #0f0f11;
+                --md-secondary: #ce93d8;
+                --md-on-surface: #e8e8ea;
+                --md-on-surface-variant: #a8a8aa;
+                --md-elevation: 0 4px 20px rgba(0, 0, 0, 0.40), 0 2px 6px rgba(0, 0, 0, 0.20);
+                --logo-light-display: none;
+                --logo-dark-display: block;
+            }
+        }
+
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background-color: #fff;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        
-        /* MD风格容器 */
-        .container {
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            padding: 40px;
-            margin-top: 50px;
-        }
-        
-        /* Logo区域 */
-        .logo-container {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-        
-        .logo {
-            width: 120px;
-            height: 120px;
-            margin: 0 auto;
-            border-radius: 8px;
+            font-family: var(--md-font);
+            background: var(--md-bg);
+            min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            /* 使用指定的Logo */
-        }
-        
-        .logo img {
-            max-width: 100%;
-            max-height: 100%;
-            border-radius: 8px;
-        }
-        
-        /* 标题区域 */
-        .title-container {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-        
-        .title {
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin-bottom: 10px;
-            color: var(--google-blue);
-        }
-        
-        .subtitle {
-            font-size: 1.2rem;
-            color: #666;
-        }
-        
-        /* 链接区域 */
-        .link-container {
-            margin: 40px 0;
-        }
-        
-        .link-box {
-            background-color: #f9f9f9;
-            border-radius: 8px;
             padding: 20px;
-            margin-bottom: 20px;
-            transition: all 0.3s ease;
-            text-align: center;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            transition: background 0.3s ease;
+            margin: 0;
         }
-        
-        .link-box:hover {
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            transform: translateY(-2px);
+
+        .card {
+            background: var(--md-surface);
+            border-radius: var(--md-radius);
+            box-shadow: var(--md-elevation);
+            padding: 32px 28px 28px;
+            max-width: 480px;
+            width: 100%;
+            transition: background 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
         }
-        
-        /* 备用网址样式 */
-        .link-box.backup {
-            opacity: 0.7;
-            background-color: #f0f0f0;
-            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 22px;
+            padding-bottom: 18px;
+            border-bottom: 2px solid var(--md-primary);
+            transition: border-color 0.3s ease;
         }
-        
-        .link-box.backup:hover {
-            opacity: 0.9;
-            background-color: #f5f5f5;
+
+        .logo-wrap {
+            display: flex;
+            align-items: center;
+            flex-shrink: 0;
+            height: 32px;
         }
-        
-        .link-box.backup .link-title {
-            color: #999;
-            font-size: 1.1rem;
+
+        .logo {
+            height: 32px;
+            width: auto;
+            display: block;
+            object-fit: contain;
         }
-        
-        .link-box.backup .link-url {
-            color: #888;
-            font-size: 0.9rem;
+
+        .logo-light {
+            display: var(--logo-light-display);
         }
-        
-        .link-box.backup .link-button {
-            background-color: #999;
-            border: none;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+        .logo-dark {
+            display: var(--logo-dark-display);
         }
-        
-        .link-box.backup .link-button:hover {
-            background-color: #777;
-            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+
+        .card-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--md-primary);
+            letter-spacing: 0.5px;
+            transition: color 0.3s ease;
+            line-height: 1.2;
+            white-space: nowrap;
         }
-        
-        .link-title {
-            font-size: 1.2rem;
-            font-weight: 600;
-            margin-bottom: 10px;
-            color: var(--google-blue);
+
+        .url-section {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            margin-top: 4px;
         }
-        
-        .link-url {
-            font-size: 1rem;
-            color: #666;
-            margin-bottom: 20px;
-            word-break: break-all;
+
+        .url-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 14px;
+            border-radius: 12px;
+            background: var(--md-bg);
+            transition: background 0.3s ease, transform 0.15s ease;
         }
-        
-        .link-button {
-            display: inline-block;
-            background-color: var(--google-blue);
-            color: #fff;
-            padding: 10px 20px;
-            border-radius: 4px;
-            text-decoration: none;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            border: none;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-        
-        .link-button:hover {
-            background-color: #3367d6;
+
+        .url-item:hover {
             transform: translateY(-1px);
-            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+            background: color-mix(in srgb, var(--md-bg) 85%, var(--md-primary) 8%);
         }
-        
-        /* 页脚 */
-        .footer {
-            text-align: center;
-            margin-top: 50px;
-            padding-top: 20px;
-            color: #999;
-            font-size: 0.9rem;
-            box-shadow: 0 -1px 3px rgba(0, 0, 0, 0.05);
+
+        .url-badge {
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+            padding: 2px 10px;
+            border-radius: 20px;
+            flex-shrink: 0;
+            background: var(--md-primary);
+            color: var(--md-on-primary);
+            transition: background 0.3s ease, color 0.3s ease;
+            line-height: 1.6;
         }
-        
-        /* 响应式设计 */
-        @media (max-width: 768px) {
-            body {
-                padding: 10px;
-            }
-            
-            .container {
-                padding: 20px;
-                margin-top: 20px;
-            }
-            
-            .title {
-                font-size: 2rem;
-            }
-            
-            .logo {
-                width: 100px;
-                height: 100px;
-                font-size: 40px;
-            }
+
+        .url-badge.secondary {
+            background: var(--md-secondary);
+            color: var(--md-on-primary);
         }
-        
+
+        .url-link {
+            font-size: 16px;
+            font-weight: 500;
+            color: var(--md-on-surface);
+            text-decoration: none;
+            word-break: break-all;
+            transition: color 0.2s ease;
+            flex: 1;
+            min-width: 0;
+            line-height: 1.4;
+        }
+
+        .url-link.primary-link {
+            color: var(--md-primary);
+            font-weight: 600;
+        }
+
+        .url-link.primary-link:hover {
+            text-decoration: underline;
+            text-underline-offset: 3px;
+        }
+
+        .url-link.secondary-link {
+            color: var(--md-secondary);
+        }
+
+        .url-link.secondary-link:hover {
+            text-decoration: underline;
+            text-underline-offset: 3px;
+            color: color-mix(in srgb, var(--md-secondary) 80%, #000 20%);
+        }
+
+        .url-link:hover {
+            color: var(--md-primary);
+        }
+
+        .card-footer {
+            margin-top: 24px;
+            padding-top: 16px;
+            border-top: 1px solid color-mix(in srgb, var(--md-on-surface) 12%, transparent);
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            transition: border-color 0.3s ease;
+        }
+
+        .footer-hint {
+            font-size: 13px;
+            color: var(--md-on-surface-variant);
+            letter-spacing: 0.2px;
+            font-weight: 400;
+            opacity: 0.8;
+            transition: color 0.3s ease;
+        }
+
+        .footer-hint span {
+            display: inline-block;
+        }
+
         @media (max-width: 480px) {
-            .title {
-                font-size: 1.8rem;
+            .card {
+                padding: 24px 18px 20px;
             }
-            
-            .subtitle {
-                font-size: 1rem;
+
+            .card-header {
+                gap: 10px;
+                padding-bottom: 14px;
+                margin-bottom: 18px;
             }
-            
-            .link-box {
-                padding: 15px;
+
+            .logo {
+                height: 26px;
+            }
+
+            .logo-wrap {
+                height: 26px;
+            }
+
+            .card-title {
+                font-size: 22px;
+            }
+
+            .url-item {
+                padding: 8px 12px;
+                gap: 10px;
+                border-radius: 10px;
+            }
+
+            .url-badge {
+                font-size: 11px;
+                padding: 1px 8px;
+            }
+
+            .url-link {
+                font-size: 14px;
+            }
+
+            .card-footer {
+                margin-top: 18px;
+                padding-top: 12px;
+                gap: 12px;
+            }
+
+            .footer-hint {
+                font-size: 12px;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .card {
+                padding: 18px 14px 16px;
+            }
+
+            .logo {
+                height: 20px;
+            }
+
+            .logo-wrap {
+                height: 20px;
+            }
+
+            .card-title {
+                font-size: 18px;
+            }
+
+            .url-item {
+                padding: 6px 10px;
+                gap: 8px;
+            }
+
+            .url-badge {
+                font-size: 10px;
+                padding: 1px 6px;
+            }
+
+            .url-link {
+                font-size: 13px;
+            }
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .url-item:hover {
+                background: color-mix(in srgb, var(--md-bg) 85%, var(--md-primary) 12%);
+            }
+
+            .url-link.secondary-link:hover {
+                color: color-mix(in srgb, var(--md-secondary) 80%, #fff 20%);
+            }
+
+            .url-link:hover {
+                color: var(--md-primary);
             }
         }
     </style>
 </head>
 <body>
-    <!-- 维护提示悬浮卡片 -->
-    <div class="maintenance-overlay">
-        <div class="maintenance-card">
-            <div class="card-icon">
-                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
-            </div>
-            <div class="card-title">网盘服务器摆烂中</div>
-            <div class="card-desc">服务器没有进行维护升级，暂时永久无法访问。<br>请100年后再试，不感谢您的理解与支持。</div>
-            <div class="card-status">
-                <span class="status-dot"></span>
-                摆烂中
-            </div>
+    <div class="card" role="main" aria-label="地址发布卡片">
+        <div class="card-header">
+            <span class="logo-wrap">
+                <img class="logo logo-light" src="https://byxpan.qzz.io/img/Banana%20Y.X.%E7%BD%91%E7%9B%98%E9%BB%91%E5%AD%97.png" alt="Banana Y.X.网盘">
+                <img class="logo logo-dark" src="https://byxpan.qzz.io/img/Banana%20Y.X.%E7%BD%91%E7%9B%98%E7%99%BD%E5%AD%97.png" alt="Banana Y.X.网盘">
+            </span>
+            <span class="card-title">地址发布页</span>
         </div>
-    </div>
 
-    <div class="container">
-        <!-- Logo区域 -->
-        <div class="logo-container">
-            <div class="logo">
-                <!-- 使用指定的Logo -->
-                <img src="https://files.bananayx.qzz.io/img/Banana头像.png" alt="Logo">
+        <div class="url-section">
+            <div class="url-item">
+                <span class="url-badge">主</span>
+                <a class="url-link primary-link" href="https://www.byxpan.qzz.io/" target="_blank" rel="noopener noreferrer">https://www.byxpan.qzz.io/</a>
+            </div>
+            <div class="url-item">
+                <span class="url-badge secondary">备1</span>
+                <a class="url-link secondary-link" href="http://lsj.2.frp.one:31523/" target="_blank" rel="noopener noreferrer">http://lsj.2.frp.one:31523/</a>
+            </div>
+            <div class="url-item">
+                <span class="url-badge secondary">备2</span>
+                <a class="url-link secondary-link" href="http://it.frp.one:35854/" target="_blank" rel="noopener noreferrer">http://it.frp.one:35854/</a>
             </div>
         </div>
-        
-        <!-- 标题区域 -->
-        <div class="title-container">
-            <h1 class="title">Banana Y.X.网盘网址发布页</h1>
-            <p class="subtitle"></p>
-        </div>
-        
-        <!-- 链接区域 -->
-        <div class="link-container">
-            <div class="link-box">
-                <h2 class="link-title">主网址</h2>
-                <p class="link-url">https://www.byxpan.qzz.io/</p>
-                <button class="link-button" onclick="redirectToUrl('https://www.byxpan.qzz.io/')">访问网站</button>
-            </div>
-            
-            <div class="link-box backup">
-                <h2 class="link-title">备用网址1</h2>
-                <p class="link-url">http://sj.frp.one:29552/</p>
-                <button class="link-button" onclick="redirectToUrl('http://sj.frp.one:29552/')">访问网站</button>
-            </div>
-            
-            <div class="link-box backup">
-                <h2 class="link-title">备用网址2</h2>
-                <p class="link-url">http://il.frp.one:65027/</p>
-                <button class="link-button" onclick="redirectToUrl('http://il.frp.one:65027/')">访问网站</button>
-            </div>
-            
-            <!-- 可以添加更多链接 -->
-        </div>
-        
-        <!-- 页脚 -->
-        <div class="footer">
-            <p>© 2026 Banana Y.X.网盘</p>
+
+        <div class="card-footer">
+            <span class="footer-hint">📌 请收藏本页 · 及时获取最新地址</span>
         </div>
     </div>
-    
-    <script>
-        // 跳转到指定网址（在当前页面跳转）
-        function redirectToUrl(url) {
-            window.location.href = url;
-        }
-        
-        // 可以在这里添加更多JavaScript功能
-    </script>
 </body>
 </html>
