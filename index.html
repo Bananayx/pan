@@ -72,6 +72,12 @@
             pointer-events: none;
         }
 
+        @media (prefers-color-scheme: light) {
+            body::before {
+                background: transparent;
+            }
+        }
+
         .card {
             background: rgba(255, 255, 255, 0.72);
             backdrop-filter: blur(20px) saturate(180%);
