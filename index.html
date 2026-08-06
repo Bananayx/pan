@@ -374,11 +374,11 @@
         </div>
     </div>
     <script>
-        fetch('http://www.wudada.online/Api/ScTp')
+        fetch('https://www.wudada.online/Api/ScTp')
             .then(res => res.json())
             .then(data => {
                 if (data && data.data) {
-                    document.body.style.backgroundImage = 'url(' + data.data + ')';
+                    document.body.style.backgroundImage = 'url(' + data.data.replace('http://', 'https://') + ')';
                 }
             })
             .catch(() => {});
